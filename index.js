@@ -53,6 +53,12 @@ Nightmare.action('injectHTML', function (selector, html, done) {
 module.exports.fromURL = function (url, path, options, callback) {
     "use strict";
 
+    if(typeof options == "function") {
+        callback = options;
+        options = null;
+    }
+    options = options || {};
+
     var n = Nightmare({
         show: true,
         width: options.width || 1280,
@@ -93,7 +99,12 @@ module.exports.fromURL = function (url, path, options, callback) {
 module.exports.fromHTML = function (html, path, options, callback) {
     "use strict";
     var identifier = Math.random();
+    if(typeof options == "function") {
+        callback = options;
+        options = null;
+    }
 
+    options = options || {};
     options.inject = options.inject || {};
 
     var n = Nightmare({
