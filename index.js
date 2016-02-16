@@ -24,6 +24,9 @@ Nightmare.action('injectHTML', function (selector, html, done) {
             if (selector.className)
                 return applyHTML.call(document.getElementsByClassName(selector.className));
 
+            if (selector.jQuery)
+                return applyHTML.call(($ || jQuery || window.jQuery)(selector.jQuery));
+
         } catch (ex) {
             document.getElementsByTagName("html")[0].innerHTML = ex.stack;
         }
@@ -83,7 +86,7 @@ module.exports.fromURL = function (url, path, options, callback) {
  * @param {Number} options.clip.height
  * @param {Object} options.inject
  * @param {Number} options.inject.url
- * @param {String|{tag: String}|{id: String}|{className: String}} options.inject.selector
+ * @param {String|{tag: String}|{id: String}|{className: String}|{jQuery: String}} options.inject.selector
  *
  * @param {function()} callback
  */
