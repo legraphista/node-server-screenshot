@@ -1,6 +1,6 @@
 {
   "name": "node-server-screenshot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A server-side component for taking screenshots of html",
   "main": "index.js",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stefangab95/server-screenshot.git"
+    "url": "git+https://github.com/stefangab95/node-server-screenshot.git"
   },
   "author": "Stefan-Gabriel Muscalu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stefangab95/server-screenshot/issues"
+    "url": "https://github.com/stefangab95/node-server-screenshot/issues"
   },
-  "homepage": "https://github.com/stefangab95/server-screenshot#readme",
+  "homepage": "https://github.com/stefangab95/node-server-screenshot#readme",
   "dependencies": {
     "nightmare": "^2.2.0"
   }
