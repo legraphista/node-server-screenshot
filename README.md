@@ -25,7 +25,7 @@ This will navigate to the url, take a screenshow and save it to the destination 
 
 #### Example:
 ```javascript
-var app = require("server-screenshot");
+var app = require("node-server-screenshot");
 app.fromURL("https://google.com", "test.png", function(){
     //an image of google.com has been saved at ./test.png
 });
@@ -60,7 +60,7 @@ This will navigate to the url, take a screenshow and save it to the destination 
 
 #### Example:
 ```javascript
-var app = require("server-screenshot");
+var app = require("node-server-screenshot");
 app.fromHTML(
     'This has been modified by injecting the HTML',
     "test.png",
@@ -74,7 +74,7 @@ app.fromHTML(
 );
 ```
 ```javascript
-var app = require("server-screenshot");
+var app = require("node-server-screenshot");
 app.fromHTML("<html><body>Hello world!</body></html>", "test.png", function(){
     //an image of the HTML has been saved at ./test.png
 });
