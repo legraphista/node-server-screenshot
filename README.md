@@ -1,5 +1,8 @@
-# server-screenshot
-A server-side NodeJS component that takes screenshots of webpages
+# node-server-screenshot
+A server-side NodeJS component that takes screenshots of:
+* Webpage at a `URL` location
+* Pure `HTML`
+* `HTML` injected into a webpage at a `URL`
 
 ## API:
 
