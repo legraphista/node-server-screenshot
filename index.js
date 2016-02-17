@@ -1,5 +1,4 @@
 var Nightmare = require("nightmare");
-var fs = require("fs");
 
 Nightmare.action('injectHTML', function (selector, html, done) {
     debugger;
@@ -41,7 +40,7 @@ Nightmare.action('injectHTML', function (selector, html, done) {
  * @param {Number} options.width
  * @param {Number} options.height
  * @param {String} options.waitAfterSelector
- * @param {Number} options.waitMiliseconds
+ * @param {Number} options.waitMilliseconds
  * @param {Object} options.clip
  * @param {Number} options.clip.x
  * @param {Number} options.clip.y
@@ -58,6 +57,7 @@ module.exports.fromURL = function (url, path, options, callback) {
         options = null;
     }
     options = options || {};
+    callback = callback || function(){};
 
     var n = Nightmare({
         show: true,
@@ -68,7 +68,7 @@ module.exports.fromURL = function (url, path, options, callback) {
     n
         .goto(url)
         .wait(options.waitAfterSelector || "html")
-        .wait(options.waitMiliseconds || 1000)
+        .wait(options.waitMilliseconds || 1000)
         .screenshot(path, options.clip)
         .then(function () {
             callback();
@@ -84,7 +84,7 @@ module.exports.fromURL = function (url, path, options, callback) {
  * @param {Number} options.width
  * @param {Number} options.height
  * @param {String} options.waitAfterSelector
- * @param {Number} options.waitMiliseconds
+ * @param {Number} options.waitMilliseconds
  * @param {Object} options.clip
  * @param {Number} options.clip.x
  * @param {Number} options.clip.y
@@ -105,6 +105,7 @@ module.exports.fromHTML = function (html, path, options, callback) {
     }
 
     options = options || {};
+    callback = callback || function(){};
     options.inject = options.inject || {};
 
     var n = Nightmare({
@@ -116,10 +117,10 @@ module.exports.fromHTML = function (html, path, options, callback) {
     n
         .goto(options.inject.url || "about:blank")
         .wait(options.waitAfterSelector || "html")
-        .wait(options.waitMiliseconds || 1000)
+        .wait(options.waitMilliseconds || 1000)
         .injectHTML(options.inject.selector || "html", html)
         .wait(options.waitAfterSelector || "html")
-        .wait(options.waitMiliseconds || 1000)
+        .wait(options.waitMilliseconds || 1000)
         .screenshot(path, options.clip)
         .then(function () {
             callback();
