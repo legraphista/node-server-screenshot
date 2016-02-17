@@ -58,9 +58,17 @@ This will navigate to the url, take a screenshow and save it to the destination 
 #### Example:
 ```javascript
 var app = require("server-screenshot");
-app.fromHTML('This has been modified by injecting the HTML', "test.png", {inject: {url: "https://en.wikipedia.org/wiki/Main_Page", selector: {className: "mw-wiki-logo"}}},function(){
-    //an image of the HTML has been saved at ./test.png
-});
+app.fromHTML(
+    'This has been modified by injecting the HTML',
+    "test.png",
+    {inject: {
+        url: "https://en.wikipedia.org/wiki/Main_Page",
+        selector: {className: "mw-wiki-logo"}
+    }},
+    function(){
+        //an image of the HTML has been saved at ./test.png
+    }
+);
 ```
 ```javascript
 var app = require("server-screenshot");
