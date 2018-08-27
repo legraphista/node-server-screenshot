@@ -1,5 +1,12 @@
 var Nightmare = require("nightmare");
 
+/**
+ * Callback for taking a screenshot of a web page.
+ *
+ * @callback screenshotCallback
+ * @param {Object} [error] - The error object if an error occurred, otherwise undefined.
+ */
+
 Nightmare.action('injectHTML', function (selector, html, done) {
     debugger;
     this.evaluate_now(function (selector, html) {
@@ -47,7 +54,7 @@ Nightmare.action('injectHTML', function (selector, html, done) {
  * @param {Number} options.clip.width
  * @param {Number} options.clip.height
  *
- * @param {function()} callback
+ * @param {screenshotCallback} callback
  */
 module.exports.fromURL = function (url, path, options, callback) {
     "use strict";
@@ -72,6 +79,9 @@ module.exports.fromURL = function (url, path, options, callback) {
         .screenshot(path, options.clip)
         .then(function () {
             callback();
+        })
+        .catch(function (err) {
+            callback(err);
         });
     n.end();
 };
@@ -94,7 +104,7 @@ module.exports.fromURL = function (url, path, options, callback) {
  * @param {Number} options.inject.url
  * @param {String|{tag: String}|{id: String}|{className: String}|{jQuery: String}} options.inject.selector
  *
- * @param {function()} callback
+ * @param {screenshotCallback} callback
  */
 module.exports.fromHTML = function (html, path, options, callback) {
     "use strict";
@@ -124,7 +134,9 @@ module.exports.fromHTML = function (html, path, options, callback) {
         .screenshot(path, options.clip)
         .then(function () {
             callback();
+        })
+        .catch(function (err) {
+            callback(err);
         });
     n.end();
-
 };
