@@ -21,7 +21,7 @@ This will navigate to the url, take a screenshow and save it to the destination 
         * y: `Number`
         * width: `Number`
         * height: `Number`
-* Callback: `Function` with no arguments
+* Callback: `Function` with an optional error argument
 
 #### Example:
 ```javascript
@@ -56,7 +56,7 @@ This will navigate to the url, take a screenshow and save it to the destination 
             * `{id: String}`
             * `{className: String}`
             * `{jQuery: String}` - Note! JQuery must be embeded in the page already
-* Callback: `Function` with no arguments
+* Callback: `Function` with an optional error argument
 
 #### Example:
 ```javascript
