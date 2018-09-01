@@ -10,7 +10,8 @@ A server-side NodeJS component that takes screenshots of:
 
 This will navigate to the url, take a screenshow and save it to the destination file
 * Url: `String` with the URL
-* DestinationFile: `String` with the location of the image file that will be saved
+* DestinationFile: `String` with the location of the image file that will be saved.
+If null is provided then the callback will return as 2nd parameter a PNG buffer.
 * Options: `Object[={}]` with options
     * width: `Number[=1280]` to set the width of the viewport
     * height: `Number[=720]` to set the height of the viewport
@@ -21,7 +22,7 @@ This will navigate to the url, take a screenshow and save it to the destination 
         * y: `Number`
         * width: `Number`
         * height: `Number`
-* Callback: `Function` with an optional error argument
+* Callback: `Function` with an optional error argument, and an optional PNG buffer argument.
 
 #### Example:
 ```javascript
@@ -37,7 +38,8 @@ ___
 
 This will navigate to the url, take a screenshow and save it to the destination file
 * Url: `String` with the URL
-* DestinationFile: `String` with the location of the image file that will be saved
+* DestinationFile: `String` with the location of the image file that will be saved.
+If null is provided then the callback will return as 2nd parameter a PNG buffer.
 * Options: `Object[={}]` with options
     * width: `Number[=1280]` to set the width of the viewport
     * height: `Number[=720]` to set the height of the viewport
@@ -56,7 +58,7 @@ This will navigate to the url, take a screenshow and save it to the destination 
             * `{id: String}`
             * `{className: String}`
             * `{jQuery: String}` - Note! JQuery must be embeded in the page already
-* Callback: `Function` with an optional error argument
+* Callback: `Function` with an optional error argument, and an optional PNG buffer argument.
 
 #### Example:
 ```javascript
