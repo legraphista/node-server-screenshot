@@ -8,7 +8,6 @@ var Nightmare = require("nightmare");
  */
 
 Nightmare.action('injectHTML', function (selector, html, done) {
-    debugger;
     this.evaluate_now(function (selector, html) {
 
         function applyHTML() {
@@ -42,7 +41,7 @@ Nightmare.action('injectHTML', function (selector, html, done) {
 /**
  * Navigates to a url and takes a screenshot
  * @param {String} url
- * @param {String} path - screenshot path
+ * @param {String|null} path - screenshot path
  * @param {Object} options
  * @param {Number} options.width
  * @param {Number} options.height
@@ -67,7 +66,7 @@ module.exports.fromURL = function (url, path, options, callback) {
     callback = callback || function(){};
 
     var n = Nightmare({
-        show: true,
+        show: typeof options.show === 'boolean' ? options.show : true,
         width: options.width || 1280,
         height: options.height || 720
     });
@@ -76,9 +75,16 @@ module.exports.fromURL = function (url, path, options, callback) {
         .goto(url)
         .wait(options.waitAfterSelector || "html")
         .wait(options.waitMilliseconds || 1000)
-        .screenshot(path, options.clip)
-        .then(function () {
-            callback();
+        .screenshot(
+          path ?
+            path :
+            options.clip,
+          path ?
+            options.clip :
+            undefined
+        )
+        .then(function (buff) {
+            callback(null, buff);
         })
         .catch(function (err) {
             callback(err);
@@ -89,7 +95,7 @@ module.exports.fromURL = function (url, path, options, callback) {
 /**
  * Navigates to a url and takes a screenshot
  * @param {String} html
- * @param {String} path - screenshot path
+ * @param {String|null} path - screenshot path
  * @param {Object} options
  * @param {Number} options.width
  * @param {Number} options.height
@@ -119,7 +125,7 @@ module.exports.fromHTML = function (html, path, options, callback) {
     options.inject = options.inject || {};
 
     var n = Nightmare({
-        show: true,
+        show: typeof options.show === 'boolean' ? options.show : true,
         width: options.width || 1280,
         height: options.height || 720
     });
@@ -131,9 +137,16 @@ module.exports.fromHTML = function (html, path, options, callback) {
         .injectHTML(options.inject.selector || "html", html)
         .wait(options.waitAfterSelector || "html")
         .wait(options.waitMilliseconds || 1000)
-        .screenshot(path, options.clip)
-        .then(function () {
-            callback();
+        .screenshot(
+          path ?
+            path :
+            options.clip,
+          path ?
+            options.clip :
+            undefined
+        )
+        .then(function (buff) {
+          callback(null, buff);
         })
         .catch(function (err) {
             callback(err);

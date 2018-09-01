@@ -1,18 +1,60 @@
 var app = require("./index");
-var exec= require("child_process").exec;
+var exec = require("child_process").exec;
+var fs = require('fs');
 
-app.fromURL("https://yahoo.com", "test.png", {}, function(){
-    "use strict";
+function assertPNG(buffer) {
+  //                       ?     P   N   G   \r  \n  SUB \n
+  var pngSignatureHeader = [137, 80, 78, 71, 13, 10, 26, 10];
 
-    exec("open ./test.png");
-});
+  for (var i = 0; i < pngSignatureHeader.length; i++) {
+    if (buffer[i] !== pngSignatureHeader[i]) {
+      throw new Error('Buffer has malformed PNG signature')
+    }
+  }
+}
 
-app.fromHTML('This has been modified by injecting the HTML', "test2.png", {inject: {url: "https://en.wikipedia.org/wiki/Main_Page", selector: {className: "mw-wiki-logo"}}},function(){
-    "use strict";
-    exec("open ./test2.png");
-});
+function assertPNGfile(file) {
+  if (!fs.existsSync(file)) {
+    throw new Error('File ' + file + ' not found!');
+  }
 
-app.fromHTML("<html><body>iaurt</body></html>", "test3.png", function(){
-    "use strict";
-    exec("open ./test3.png");
+  assertPNG(fs.readFileSync(file));
+}
+
+console.log('saving google.com into google.png');
+app.fromURL("https://google.com", "google.png", {}, function (err) {
+  if (err) {
+    throw err;
+  }
+
+  assertPNGfile('google.png');
+  console.log('google.png looks ok');
+
+  console.log('saving wikipedia.png with injected html headlessly')
+  app.fromHTML('This has been modified by injecting the HTML', "wiki.png", {
+    inject: {
+      url: "https://en.wikipedia.org/wiki/Main_Page",
+      selector: { className: "mw-wiki-logo" }
+    },
+    width: 500,
+    height: 1000,
+    show: false
+  }, function () {
+    if (err) {
+      throw err;
+    }
+    assertPNGfile('wiki.png');
+    console.log('wiki.png looks ok');
+
+
+    console.log('checking that if provided path is null, it will output a buffer');
+    app.fromHTML("<html><body>something something html</body></html>", null, function (err, buff) {
+      if (err) {
+        throw err;
+      }
+
+      assertPNG(buff);
+      console.log('PNG buffer looks ok');
+    });
+  });
 });

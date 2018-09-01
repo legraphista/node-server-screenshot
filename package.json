@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/stefangab95/node-server-screenshot#readme",
   "dependencies": {
-    "nightmare": "^2.2.0"
+    "nightmare": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=4.5.0"
   }
 }
