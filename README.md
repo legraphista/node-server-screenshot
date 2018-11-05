@@ -8,7 +8,7 @@ A server-side NodeJS component that takes screenshots of:
 
 **fromURL(url, destinationFile, options, callback)**
 
-This will navigate to the url, take a screenshow and save it to the destination file
+This will navigate to the url, take a screenshot and save it to the destination file
 * Url: `String` with the URL
 * DestinationFile: `String` with the location of the image file that will be saved.
 If null is provided then the callback will return as 2nd parameter a PNG buffer.
@@ -36,7 +36,7 @@ ___
 
 **fromHTML(html, destinationFile, options, callback)**
 
-This will navigate to the url, take a screenshow and save it to the destination file
+This will navigate to the url, take a screenshot and save it to the destination file
 * Url: `String` with the URL
 * DestinationFile: `String` with the location of the image file that will be saved.
 If null is provided then the callback will return as 2nd parameter a PNG buffer.
@@ -57,7 +57,7 @@ If null is provided then the callback will return as 2nd parameter a PNG buffer.
             * `{tag: String}`
             * `{id: String}`
             * `{className: String}`
-            * `{jQuery: String}` - Note! JQuery must be embeded in the page already
+            * `{jQuery: String}` - Note! JQuery must be embedded in the page already
 * Callback: `Function` with an optional error argument, and an optional PNG buffer argument.
 
 #### Example:

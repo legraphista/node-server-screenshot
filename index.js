@@ -121,7 +121,6 @@ module.exports.fromURL = function (url, path, options, callback) {
  */
 module.exports.fromHTML = function (html, path, options, callback) {
     "use strict";
-    var identifier = Math.random();
     if(typeof options == "function") {
         callback = options;
         options = null;
