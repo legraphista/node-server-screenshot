@@ -22,7 +22,7 @@ function assertPNGfile(file) {
 }
 
 console.log('saving google.com into google.png');
-app.fromURL("https://google.com", "google.png", {}, function (err) {
+app.fromURL("https://google.com", "google.png", { clip: { x: 490, y: 180, width: 100, height: 100 } }, function (err) {
   if (err) {
     throw err;
   }
@@ -48,7 +48,12 @@ app.fromURL("https://google.com", "google.png", {}, function (err) {
 
 
     console.log('checking that if provided path is null, it will output a buffer');
-    app.fromHTML("<html><body>something something html</body></html>", null, function (err, buff) {
+    app.fromHTML("<html><body>something something html</body></html>", null, {
+      clip: {
+        width: 100,
+        height: 100
+      }
+    }, function (err, buff) {
       if (err) {
         throw err;
       }

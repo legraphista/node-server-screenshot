@@ -64,7 +64,14 @@ module.exports.fromURL = function (url, path, options, callback) {
     }
     options = options || {};
     callback = callback || function(){};
-
+    if (options.clip) {
+        if (typeof options.clip.x !== 'number') {
+            options.clip.x = 0;
+        }
+        if (typeof options.clip.y !== 'number') {
+            options.clip.y = 0;
+        }
+    }
     var n = Nightmare({
         show: typeof options.show === 'boolean' ? options.show : true,
         width: options.width || 1280,
@@ -76,12 +83,8 @@ module.exports.fromURL = function (url, path, options, callback) {
         .wait(options.waitAfterSelector || "html")
         .wait(options.waitMilliseconds || 1000)
         .screenshot(
-          path ?
-            path :
-            options.clip,
-          path ?
-            options.clip :
-            undefined
+            path || undefined,
+            options.clip || undefined
         )
         .then(function (buff) {
             callback(null, buff);
@@ -123,6 +126,14 @@ module.exports.fromHTML = function (html, path, options, callback) {
     options = options || {};
     callback = callback || function(){};
     options.inject = options.inject || {};
+    if (options.clip) {
+        if (typeof options.clip.x !== 'number') {
+            options.clip.x = 0;
+        }
+        if (typeof options.clip.y !== 'number') {
+            options.clip.y = 0;
+        }
+    }
 
     var n = Nightmare({
         show: typeof options.show === 'boolean' ? options.show : true,
@@ -138,12 +149,8 @@ module.exports.fromHTML = function (html, path, options, callback) {
         .wait(options.waitAfterSelector || "html")
         .wait(options.waitMilliseconds || 1000)
         .screenshot(
-          path ?
-            path :
-            options.clip,
-          path ?
-            options.clip :
-            undefined
+            path || undefined,
+            options.clip || undefined
         )
         .then(function (buff) {
           callback(null, buff);
