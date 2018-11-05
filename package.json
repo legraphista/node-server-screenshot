@@ -1,6 +1,6 @@
 {
   "name": "node-server-screenshot",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A server-side component for taking screenshots of html",
   "main": "index.js",
   "scripts": {
