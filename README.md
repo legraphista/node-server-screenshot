@@ -22,6 +22,7 @@ If null is provided then the callback will return as 2nd parameter a PNG buffer.
         * y: `Number`
         * width: `Number`
         * height: `Number`
+    * scale: `Number[=1]` to set the scaling of the browser.
 * Callback: `Function` with an optional error argument, and an optional PNG buffer argument.
 
 #### Example:
