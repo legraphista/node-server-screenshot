@@ -43,11 +43,12 @@ Nightmare.action('injectHTML', function (selector, html, done) {
  * @param {String} url
  * @param {String|null} path - screenshot path
  * @param {Object} options
- * @param {Number} options.width
- * @param {Number} options.height
- * @param {String} options.waitAfterSelector
- * @param {Number} options.waitMilliseconds
- * @param {Object} options.clip
+ * @param {Number=} options.scale
+ * @param {Number=} options.width
+ * @param {Number=} options.height
+ * @param {String=} options.waitAfterSelector
+ * @param {Number=} options.waitMilliseconds
+ * @param {Object=} options.clip
  * @param {Number} options.clip.x
  * @param {Number} options.clip.y
  * @param {Number} options.clip.width
@@ -72,7 +73,9 @@ module.exports.fromURL = function (url, path, options, callback) {
             options.clip.y = 0;
         }
     }
+
     var n = Nightmare({
+        switches: { 'force-device-scale-factor': options.scale ? options.scale.toString() : '1' },
         show: typeof options.show === 'boolean' ? options.show : true,
         width: options.width || 1280,
         height: options.height || 720
@@ -100,16 +103,17 @@ module.exports.fromURL = function (url, path, options, callback) {
  * @param {String} html
  * @param {String|null} path - screenshot path
  * @param {Object} options
- * @param {Number} options.width
- * @param {Number} options.height
- * @param {String} options.waitAfterSelector
- * @param {Number} options.waitMilliseconds
- * @param {Object} options.clip
+ * @param {Number=} options.scale
+ * @param {Number=} options.width
+ * @param {Number=} options.height
+ * @param {String=} options.waitAfterSelector
+ * @param {Number=} options.waitMilliseconds
+ * @param {Object=} options.clip
  * @param {Number} options.clip.x
  * @param {Number} options.clip.y
  * @param {Number} options.clip.width
  * @param {Number} options.clip.height
- * @param {Object} options.inject
+ * @param {Object=} options.inject
  * @param {Number} options.inject.url
  * @param {String|{tag: String}|{id: String}|{className: String}|{jQuery: String}} options.inject.selector
  *
@@ -136,6 +140,7 @@ module.exports.fromHTML = function (html, path, options, callback) {
     }
 
     var n = Nightmare({
+        switches: { 'force-device-scale-factor': options.scale ? options.scale.toString() : '1' },
         show: typeof options.show === 'boolean' ? options.show : true,
         width: options.width || 1280,
         height: options.height || 720

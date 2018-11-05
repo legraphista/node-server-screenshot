@@ -22,7 +22,7 @@ function assertPNGfile(file) {
 }
 
 console.log('saving google.com into google.png');
-app.fromURL("https://google.com", "google.png", { clip: { x: 490, y: 180, width: 100, height: 100 } }, function (err) {
+app.fromURL("https://google.com", "google.png", { clip: { x: 490, y: 180, width: 100, height: 100 }, scale: 5 }, function (err) {
   if (err) {
     throw err;
   }
