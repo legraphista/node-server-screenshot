@@ -82,7 +82,8 @@ module.exports.fromURL = function (url, path, options, callback) {
     });
 
     n
-        .goto(url)
+      .viewport(options.width || 1280, options.height || 720)
+      .goto(url)
         .wait(options.waitAfterSelector || "html")
         .wait(options.waitMilliseconds || 1000)
         .screenshot(
@@ -146,6 +147,7 @@ module.exports.fromHTML = function (html, path, options, callback) {
     });
 
     n
+        .viewport(options.width || 1280, options.height || 720)
         .goto(options.inject.url || "about:blank")
         .wait(options.waitAfterSelector || "html")
         .wait(options.waitMilliseconds || 1000)
