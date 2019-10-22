@@ -22,7 +22,7 @@ function assertPNGfile(file) {
 }
 
 console.log('saving google.com into google.png');
-app.fromURL("https://google.com", "google.png", { clip: { x: 490, y: 180, width: 100, height: 100 }, scale: 5 }, function (err) {
+app.fromURL("https://google.com", "google.png", { clip: { x: 490, y: 180, width: 100, height: 100 }, scale: 1 }, function (err) {
   if (err) {
     throw err;
   }
@@ -60,6 +60,15 @@ app.fromURL("https://google.com", "google.png", { clip: { x: 490, y: 180, width:
 
       assertPNG(buff);
       console.log('PNG buffer looks ok');
+
+      app.fromURL("https://bluecrate.com", "redirect.png",{waitMilliseconds: 5000}, function(err){
+        if (err) {
+          throw err;
+        }
+
+        assertPNGfile('redirect.png');
+        console.log('redirect.png looks ok');
+      });
     });
   });
 });
