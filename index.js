@@ -57,46 +57,53 @@ Nightmare.action('injectHTML', function (selector, html, done) {
  * @param {screenshotCallback} callback
  */
 module.exports.fromURL = function (url, path, options, callback) {
-    "use strict";
+  "use strict";
 
-    if(typeof options == "function") {
-        callback = options;
-        options = null;
+  if(typeof options == "function") {
+    callback = options;
+    options = null;
+  }
+  options = options || {};
+  callback = callback || function(){};
+  if (options.clip) {
+    if (typeof options.clip.x !== 'number') {
+      options.clip.x = 0;
     }
-    options = options || {};
-    callback = callback || function(){};
-    if (options.clip) {
-        if (typeof options.clip.x !== 'number') {
-            options.clip.x = 0;
-        }
-        if (typeof options.clip.y !== 'number') {
-            options.clip.y = 0;
-        }
+    if (typeof options.clip.y !== 'number') {
+      options.clip.y = 0;
     }
+  }
 
-    var n = Nightmare({
-        switches: { 'force-device-scale-factor': options.scale ? options.scale.toString() : '1' },
-        show: typeof options.show === 'boolean' ? options.show : true,
-        width: options.width || 1280,
-        height: options.height || 720
-    });
+  var n = Nightmare({
+    switches: { 'ignore-certificate-errors': true, 'force-device-scale-factor': options.scale ? options.scale.toString() : '1' },
+    show: typeof options.show === 'boolean' ? options.show : true,
+    width: options.width || 1280,
+    height: options.height || 720
+  });
 
-    n
-      .viewport(options.width || 1280, options.height || 720)
-      .goto(url)
-        .wait(options.waitAfterSelector || "html")
-        .wait(options.waitMilliseconds || 1000)
-        .screenshot(
-            path || undefined,
-            options.clip || undefined
-        )
-        .then(function (buff) {
-            callback(null, buff);
-        })
-        .catch(function (err) {
-            callback(err);
-        });
-    n.end();
+  n
+  .viewport(options.width || 1280, options.height || 720)
+  .goto(url)
+  .wait(options.waitAfterSelector || "html")
+  .wait(options.waitMilliseconds || 1000)
+  .screenshot(
+    path || undefined,
+    options.clip || undefined
+  )
+  .then(function (buff) {
+    callback(null, buff);
+  })
+  .catch(function (err) {
+    return n
+    .screenshot(path || undefined, options.clip || undefined)
+    .then(function (buff) {
+      callback(null, buff);
+    })
+    .catch(function(){ callback(err) });
+  })
+  .finally(function() {
+    return n.end();
+  });
 };
 
 /**
