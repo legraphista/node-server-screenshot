@@ -78,7 +78,8 @@ module.exports.fromURL = function (url, path, options, callback) {
     switches: { 'ignore-certificate-errors': true, 'force-device-scale-factor': options.scale ? options.scale.toString() : '1' },
     show: typeof options.show === 'boolean' ? options.show : true,
     width: options.width || 1280,
-    height: options.height || 720
+    height: options.height || 720,
+    frame: false
   });
 
   n
@@ -150,7 +151,8 @@ module.exports.fromHTML = function (html, path, options, callback) {
         switches: { 'force-device-scale-factor': options.scale ? options.scale.toString() : '1' },
         show: typeof options.show === 'boolean' ? options.show : true,
         width: options.width || 1280,
-        height: options.height || 720
+        height: options.height || 720,
+        frame: false
     });
 
     n
